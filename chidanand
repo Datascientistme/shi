@@ -1,0 +1,19 @@
+import pandas as pd
+import gradio as gr
+import csv
+
+def process_csv(input_csv: csv):
+df = pd.read_csv(input_csv.name)
+predictions = your_model.predict(df)
+output_csv_name = "processed_" + input_csv.name.split("/")[-1]
+predictions.to_csv(output_csv_name, index=False)
+return output_csv_name
+gr.Interface(
+    process_csv,
+    gr.File(file_types=[".csv"], file_count='single'),
+    gr.File(file_types=[".csv"]),
+    title="Demo to Work With CSV",
+    allow_flagging='never',
+)
+if __name__ == "__main__":
+    ui.launch()
